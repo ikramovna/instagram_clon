@@ -1,0 +1,7 @@
+Instagram backend:
+
+1) User authentication -> login, logout, signup, reset and forget password, change password.
+2) Posts -> image, caption, likes, likes_count, comment, comment_count.
+3) Profile -> user information , change password, followers/following, block.
+4) Notification -> follow, replay comment.
+5) story -> put story, see story in 24 hour limit.
