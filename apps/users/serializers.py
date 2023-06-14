@@ -27,6 +27,13 @@ class SignUpSerializer(ModelSerializer):
 
         }
 
+    def validate(self, data):
+        super(SignUpSerializer, self).validate(data)
+        data = self.auth_validate(data)
+        return data
+
     @staticmethod
     def auth_validate(attrs):
-        pass
+        print(attrs)
+        user_input = str(attrs.get('email_phone_number')).lower()
+        return data
