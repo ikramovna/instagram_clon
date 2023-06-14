@@ -1,7 +1,6 @@
-from django.db.models import UUIDField
 from rest_framework import serializers
 from rest_framework.fields import CharField
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, UUIDField
 
 from apps.users.models import User
 

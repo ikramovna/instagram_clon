@@ -3,38 +3,36 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
-
-DEBUG = True
-
-load_dotenv()
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
 MY_APPS = [
     'apps.insta_clone',
     'apps.users',
-    'apps.shared',
-
 ]
 
 THIRD_PARTY_APPS = [
     'rest_framework',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
     'drf_yasg',
 ]
 
 INSTALLED_APPS = [
-                     'django.contrib.admin',
-                     'django.contrib.auth',
-                     'django.contrib.contenttypes',
-                     'django.contrib.sessions',
-                     'django.contrib.messages',
-                     'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
 
-                 ] + MY_APPS + THIRD_PARTY_APPS
+INSTALLED_APPS += MY_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

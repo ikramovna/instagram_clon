@@ -15,7 +15,7 @@ VIA_EMAIL, VIA_PHONE = ('via_email', 'via_phone')
 NEW, CODE_VERIFIED, DONE, PHOTO_STEP = ('new', 'code_verified', 'done', 'photo_step')
 
 
-class User(AbstractUser, BaseModel):
+class User(AbstractUser):
     USER_ROLES = (
         (ORDINARY_USER, ORDINARY_USER),
         (MANAGER, MANAGER),
@@ -32,12 +32,12 @@ class User(AbstractUser, BaseModel):
         (PHOTO_STEP, PHOTO_STEP)
     )
     user_roles = CharField(max_length=30, choices=USER_ROLES, default=ORDINARY_USER)
-    AUTH_TYPE = CharField(max_length=30, choices=AUTH_TYPE_CHOICES)
-    AUTH_STATUS = CharField(max_length=30, choices=AUTH_STATUS, default=NEW)
+    auth_type = CharField(max_length=30, choices=AUTH_TYPE_CHOICES)
+    auth_status = CharField(max_length=30, choices=AUTH_STATUS, default=NEW)
     email = EmailField(null=True, unique=True)
     phone_number = CharField(max_length=13, null=True, unique=True)
     photo = ImageField(upload_to='user/images/', null=True, blank=True,
-                       validators=FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'heic', 'heif']))
+                       validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'heic', 'heif'])])
 
     def __str__(self):
         return self.username
@@ -106,7 +106,7 @@ class UserConfirmation(BaseModel):
     )
     code = CharField(max_length=4)
     verify_type = CharField(max_length=30, choices=TYPE_CHOISES)
-    user = ForeignKey('users.User', CASCADE, related_name='verified_code')
+    user = ForeignKey('User', CASCADE)#, related_name='verified_code')
     expiration_time = DateTimeField(null=True)
     is_confirmed = BooleanField(default=False)
 

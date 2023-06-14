@@ -8,6 +8,5 @@ class BaseModel(Model):
     created_time = DateTimeField(auto_now_add=True)
     updated_time = DateTimeField(auto_now=True)
 
-
-class Meta:
-    abstract = True
+    class Meta:
+        abstract = True

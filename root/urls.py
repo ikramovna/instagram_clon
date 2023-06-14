@@ -8,8 +8,5 @@ from root.swagger import swagger_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.insta_clone.urls')),
-    path('', include('apps.users.urls')),
-    path('', include('apps.shared.urls')),
-
-
+    path('users/', include('apps.users.urls')),
 ] + swagger_urls + static(MEDIA_URL, document_root=MEDIA_ROOT)
