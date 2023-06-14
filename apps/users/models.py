@@ -83,16 +83,15 @@ class User(AbstractUser):
             'refresh_token': str(refresh)
         }
 
+    def save(self, *args, **kwargs):
+        self.clean()
+        super(User, self).save(*args, **kwargs)
+
     def clean(self):
         self.check_email()
         self.check_username()
         self.check_pass()
         self.hashing_password()
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.clean()
-        super(User, self).save(*args, **kwargs)
 
 
 PHONE_EXPIRE = 2
@@ -106,7 +105,7 @@ class UserConfirmation(BaseModel):
     )
     code = CharField(max_length=4)
     verify_type = CharField(max_length=30, choices=TYPE_CHOISES)
-    user = ForeignKey('User', CASCADE)#, related_name='verified_code')
+    user = ForeignKey('User', CASCADE)  # , related_name='verified_code')
     expiration_time = DateTimeField(null=True)
     is_confirmed = BooleanField(default=False)
 
