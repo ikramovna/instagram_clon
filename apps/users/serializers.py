@@ -27,6 +27,17 @@ class SignUpSerializer(ModelSerializer):
 
         }
 
+    def create(self, validated_data):
+        user = super(SignUpSerializer, self).create(validated_data)
+        if user.auth_type == VIA_EMAIL:
+            code = user.create_verify_code(VIA_EMAIL)
+            print(code)
+            # send_mail(user.email, code)
+        elif user.auth_type == VIA_PHONE:
+            code = user.create_verify_code(VIA_PHONE)
+            # send_phone_code(user.phone_number, code)
+        user.save()
+
     def validate(self, data):
         super(SignUpSerializer, self).validate(data)
         data = self.auth_validate(data)
@@ -54,3 +65,8 @@ class SignUpSerializer(ModelSerializer):
             }
             raise ValidationError(data)
         return data
+
+    def validate_email_phone_number(self, value):
+        value = value.lower()
+
+        return value
