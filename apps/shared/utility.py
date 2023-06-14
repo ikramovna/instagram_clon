@@ -3,6 +3,7 @@ import threading
 from email.message import EmailMessage
 
 from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 email_regex = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b')
 phone_regex = re.compile(r"^9\d{12}$")
@@ -45,5 +46,13 @@ class Email:
 
 def send_email(email, code):
     html_content = render_to_string(
-
+        'email/authentication/activate_account.html',
+        {'code': code}
+    )
+    Email.send_email(
+        {
+            'subject':'Register',
+            'to_email': email,
+            'content_type': 'html'
+        }
     )
