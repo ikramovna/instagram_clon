@@ -5,3 +5,7 @@ Instagram backend:
 3) Profile -> user information , change password, followers/following, block.
 4) Notification -> follow, replay comment.
 5) story -> put story, see story in 24 hour limit.
+
+
+Note:
+Send email asynchronously and to representation ✅
